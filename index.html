@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ஊடாடும் வரைபடக் கணிப்பான் (Interactive Graphing Calculator)</title>
+    <title>MATHS EXHIBITION 2026 IN POOVARASANKULAM M.V</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Inter & Tamil Support -->
@@ -30,8 +30,8 @@
                 <i class="fa-solid fa-chart-line text-xl"></i>
             </div>
             <div>
-                <h1 class="text-xl font-bold tracking-tight text-white">வரைபடக் கணிப்பான்</h1>
-                <p class="text-xs text-slate-400">பல சமன்பாடுகளை ஒரே வரைபடத்தில் வரைக</p>
+                <h1 class="text-xl font-bold tracking-tight text-white">MATHS EXHIBITION 2026 IN POOVARASANKULAM M.V</h1>
+                <p class="text-xs text-slate-400">ஊடாடும் வரைபடக் கணிப்பான் (Interactive Graphing Calculator)</p>
             </div>
         </div>
         <div class="flex items-center space-x-2 space-x-reverse mt-2 sm:mt-0">
@@ -110,7 +110,7 @@
         </section>
     </main>
 
-    <!-- Notification Modal Box (Custom Alert substitute) -->
+    <!-- Notification Modal Box -->
     <div id="message-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-sm w-full mx-4 shadow-2xl text-center">
             <div id="modal-icon" class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-3 text-xl">
@@ -124,7 +124,6 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // Custom Modal Function
         function showMessage(title, message, isError = true) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-message').innerText = message;
@@ -143,12 +142,11 @@
             document.getElementById('message-modal').classList.add('hidden');
         }
 
-        // Canvas & Graph State Configuration
         const canvas = document.getElementById('graphCanvas');
         const ctx = canvas.getContext('2d');
 
-        let scale = 40; // Pixels per unit
-        let offsetX = 0; // Offset in pixels from center
+        let scale = 40; 
+        let offsetX = 0; 
         let offsetY = 0; 
 
         let isDragging = false;
@@ -158,12 +156,10 @@
         let equations = [];
         const defaultColors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#8b5cf6'];
 
-        // Initialize App
         window.onload = function() {
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
             
-            // Add initial default equations
             addEquationRowWithValues('y = 2*x + 1', defaultColors[0]);
             addEquationRowWithValues('y = x^2 - 4', defaultColors[1]);
 
@@ -178,7 +174,6 @@
             drawGraph();
         }
 
-        // Equation Management
         function addEquationRow() {
             const color = defaultColors[equations.length % defaultColors.length];
             addEquationRowWithValues('y = x', color);
@@ -235,7 +230,6 @@
                 
                 if (rawExpr) {
                     try {
-                        // Compile expression using math.js
                         const compiled = math.compile(rawExpr);
                         equations.push({
                             expr: rawExpr,
@@ -255,27 +249,21 @@
             drawGraph();
         }
 
-        // Canvas Drawing Engine
         function drawGraph() {
             if (!ctx) return;
             
             const width = canvas.width;
             const height = canvas.height;
 
-            // Clear Background
-            ctx.fillStyle = '#020617'; // slate-950
+            ctx.fillStyle = '#020617'; 
             ctx.fillRect(0, 0, width, height);
 
             const centerX = width / 2 + offsetX;
             const centerY = height / 2 + offsetY;
 
-            // Draw Grid Lines
             drawGrid(width, height, centerX, centerY);
-
-            // Draw Axes
             drawAxes(width, height, centerX, centerY);
 
-            // Plot Equations
             equations.forEach(eq => {
                 if (eq.valid && eq.compiled) {
                     plotFunction(eq.compiled, eq.color, width, height, centerX, centerY);
@@ -285,14 +273,11 @@
 
         function drawGrid(width, height, centerX, centerY) {
             ctx.lineWidth = 1;
-            
-            // Dynamic grid step calculation based on scale
             let step = scale;
             if (scale < 20) step *= 5;
             else if (scale > 80) step /= 2;
 
-            // Vertical Grid Lines
-            ctx.strokeStyle = '#1e293b'; // slate-800
+            ctx.strokeStyle = '#1e293b'; 
             for (let x = centerX % step; x < width; x += step) {
                 ctx.beginPath();
                 ctx.moveTo(x, 0);
@@ -300,7 +285,6 @@
                 ctx.stroke();
             }
 
-            // Horizontal Grid Lines
             for (let y = centerY % step; y < height; y += step) {
                 ctx.beginPath();
                 ctx.moveTo(0, y);
@@ -311,9 +295,8 @@
 
         function drawAxes(width, height, centerX, centerY) {
             ctx.lineWidth = 2;
-            ctx.strokeStyle = '#475569'; // slate-600
+            ctx.strokeStyle = '#475569'; 
 
-            // Y-Axis
             if (centerX >= 0 && centerX <= width) {
                 ctx.beginPath();
                 ctx.moveTo(centerX, 0);
@@ -321,7 +304,6 @@
                 ctx.stroke();
             }
 
-            // X-Axis
             if (centerY >= 0 && centerY <= height) {
                 ctx.beginPath();
                 ctx.moveTo(0, centerY);
@@ -329,7 +311,6 @@
                 ctx.stroke();
             }
 
-            // Draw Axis Markings and Numbers
             ctx.fillStyle = '#94a3b8';
             ctx.font = '11px Inter, sans-serif';
             ctx.textAlign = 'center';
@@ -339,7 +320,6 @@
             if (scale < 20) step *= 5;
             else if (scale > 80) step /= 2;
 
-            // X-Axis Numbers
             for (let x = centerX % step; x < width; x += step) {
                 const val = (x - centerX) / scale;
                 if (Math.abs(val) > 0.001) {
@@ -347,7 +327,6 @@
                 }
             }
 
-            // Y-Axis Numbers
             ctx.textAlign = 'right';
             ctx.textBaseline = 'middle';
             for (let y = centerY % step; y < height; y += step) {
@@ -364,7 +343,7 @@
             ctx.beginPath();
 
             let first = true;
-            const precision = 2; // Pixel step resolution
+            const precision = 2; 
 
             for (let px = 0; px <= width; px += precision) {
                 const x = (px - centerX) / scale;
@@ -373,7 +352,6 @@
                     if (typeof y === 'number' && !isNaN(y) && isFinite(y)) {
                         const py = centerY - y * scale;
                         
-                        // Prevent extreme lines crossing infinity (e.g. tan(x))
                         if (py >= -height * 2 && py <= height * 3) {
                             if (first) {
                                 ctx.moveTo(px, py);
@@ -394,7 +372,6 @@
             ctx.stroke();
         }
 
-        // Mouse & Touch Interactivity (Panning & Zooming)
         function setupCanvasEvents() {
             canvas.addEventListener('mousedown', (e) => {
                 isDragging = true;
@@ -413,7 +390,6 @@
                 const graphX = (mouseX - centerX) / scale;
                 const graphY = (centerY - mouseY) / scale;
 
-                // Update Tooltip
                 const tooltip = document.getElementById('tooltip');
                 if (mouseX >= 0 && mouseX <= canvas.width && mouseY >= 0 && mouseY <= canvas.height) {
                     tooltip.classList.remove('hidden');
@@ -434,7 +410,6 @@
                 canvas.classList.remove('cursor-grabbing');
             });
 
-            // Zoom using Mouse Wheel
             canvas.addEventListener('wheel', (e) => {
                 e.preventDefault();
                 const zoomFactor = 1.1;
